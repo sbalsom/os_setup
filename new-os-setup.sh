@@ -17,7 +17,6 @@ PACKAGES=(
     asdf
     postgresql
     ffmpeg			
-    python3
     pipenv
     chruby
     readline
@@ -35,14 +34,13 @@ PACKAGES=(
     node
     jenv
     yarn
+    pyenv
 )
 
 brew install ${PACKAGES[@]}
 
 # not sure about these linking steps ...
 
-brew link python
-brew link --overwrite pipenv
 brew link --force readline
 
 echo "Installing Ruby gems"
@@ -54,12 +52,6 @@ RUBY_GEMS=(
     rspec
 )
 sudo gem install ${RUBY_GEMS[@]}
-
-echo "Installing Python packages..."
-PYTHON_PACKAGES=(
-    pipenv
-)
-sudo pip3 install ${PYTHON_PACKAGES[@]}
 
 echo "Which email do you use on github?"
 read email
@@ -115,4 +107,6 @@ git config --global user.email "$email"
 echo "Which name should appear on your commits?"
 read name
 git config --global user.name "$name"
+echo "User identity added to .gitconfig file located at ~/.gitconfig or ~/code/dotfiles/.gitconfig"
+echo "To remove identifying info from git history in this directory, add #gitignore comment to these lines"
 echo "Macbook setup completed!"
