@@ -109,9 +109,6 @@ echo "Did you complete this step ? y/n"
 read answer
 if test "$answer" == "y" ; then
    gh auth login
-else
-   echo "exiting"
-   exit
 fi
 
 echo "User identity added to .gitconfig file located at ~/.gitconfig or ~/code/dotfiles/.gitconfig"
