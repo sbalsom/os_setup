@@ -67,7 +67,8 @@ mkdir -p ~/.ssh && ssh-keygen -t ed25519 -o -a 100 -f ~/.ssh/id_ed25519 -C "$ema
 echo "Now copy the contents of ~/.ssh/id_ed25519.pub to GH: github.com/settings/ssh"
 gh auth login 
 
-echo "Installing cask..."CASKS=(
+echo "Installing cask..."
+CASKS=(
     iterm2
     slack
     spotify
@@ -81,7 +82,9 @@ echo "Installing cask..."CASKS=(
 echo "Installing cask apps..."
 brew cask install ${CASKS[@]}
 
-echo "Configuring OS..."# Set fast key repeat rate
+echo "Configuring OS..."
+
+# Set fast key repeat rate
 defaults write NSGlobalDomain KeyRepeat -int 0
 
 # Require password as soon as screensaver or sleep mode starts
@@ -90,6 +93,7 @@ defaults write com.apple.screensaver askForPasswordDelay -int 0
 
 # Show filename extensions by default
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+
 echo "Linking dotfiles from https://github.com/sbalsom/dotfiles"
 
 git clone git@github.com:sbalsom/dotfiles.git ~/code/dotfiles
