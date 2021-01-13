@@ -1,7 +1,9 @@
 echo "Starting setup"
 
 # install xcode CLI
-xcode-select —-install
+if test ! $(which xcode-select); then
+    xcode-select —-install
+fi
 
 if test ! $(which brew); then
     echo "Installing homebrew..."
@@ -39,8 +41,6 @@ PACKAGES=(
 
 brew install ${PACKAGES[@]}
 
-# not sure about these linking steps ...
-
 brew link --force readline
 
 echo "Installing Ruby gems"
@@ -52,12 +52,6 @@ RUBY_GEMS=(
     rspec
 )
 sudo gem install ${RUBY_GEMS[@]}
-
-echo "Which email do you use on github?"
-read email
-mkdir -p ~/.ssh && ssh-keygen -t ed25519 -o -a 100 -f ~/.ssh/id_ed25519 -C "$email"
-echo "Now copy the contents of ~/.ssh/id_ed25519.pub to GH: github.com/settings/ssh"
-gh auth login 
 
 echo "Installing cask..."
 CASKS=(
@@ -102,11 +96,24 @@ ln -s code/dotfiles/.vimrc ~/.vimrc
 rm ~/.zshrc
 ln -s code/dotfiles/.zshrc ~/.zshrc
 
-git config --global user.email "$email"
-
+echo "Setting up git ssh key with your identity"
+echo  "Which email do you use on github?"
+read email
 echo "Which name should appear on your commits?"
 read name
+git config --global user.email "$email"
 git config --global user.name "$name"
+mkdir -p ~/.ssh && ssh-keygen -t ed25519 -o -a 100 -f ~/.ssh/id_ed25519 -C "$email"
+echo "Now copy the contents of ~/.ssh/id_ed25519.pub to GH: github.com/settings/ssh"
+echo "Did you complete this step ? y/n"
+read answer
+if test "$answer" == "y" ; then
+   gh auth login
+else
+   echo "exiting"
+   exit
+fi
+
 echo "User identity added to .gitconfig file located at ~/.gitconfig or ~/code/dotfiles/.gitconfig"
 echo "To remove identifying info from git history in this directory, add #gitignore comment to these lines"
 echo "Macbook setup completed!"
