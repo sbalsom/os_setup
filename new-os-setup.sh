@@ -110,5 +110,9 @@ ln -s code/dotfiles/.vimrc ~/.vimrc
 rm ~/.zshrc
 ln -s code/dotfiles/.zshrc ~/.zshrc
 
+git config --global user.email "$email"
 
+echo "Which name should appear on your commits?"
+read name
+git config --global user.name "$name"
 echo "Macbook setup completed!"
