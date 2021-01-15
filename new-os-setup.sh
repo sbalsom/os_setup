@@ -17,14 +17,24 @@ brew update
 PACKAGES=(
     ack
     asdf
+    blueutil
+    tokei
+    vim
+    yank
+    fzf
+    noti
+    overmind
     postgresql
     ffmpeg			
     pipenv
+    shellcheck
     chruby
+    ruby-install
     readline
     sbt
     scala
     git
+    git-delta
     gh
     git-lfs
     hub
@@ -34,6 +44,7 @@ PACKAGES=(
     sqlite
     heroku
     node
+    pgcli
     jenv
     yarn
     pyenv
@@ -51,7 +62,7 @@ RUBY_GEMS=(
     rake
     rspec
 )
-sudo gem install ${RUBY_GEMS[@]}
+gem install ${RUBY_GEMS[@]}
 
 echo "Installing cask..."
 CASKS=(
@@ -61,7 +72,9 @@ CASKS=(
     visual-studio-code
     pgadmin4
     postman
+    postgres
     docker
+    postico
     1password
 )
 
